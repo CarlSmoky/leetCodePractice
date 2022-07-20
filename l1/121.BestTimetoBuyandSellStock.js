@@ -4,17 +4,29 @@
 
 // Return the maximum profit you can achieve from this transaction. If you cannot achieve any profit, return 0.
 
-const maxProfit = prices => {  
+// const maxProfit = prices => {  
+//   let maxDiff = 0;
+//   for (let i = 0; i < prices.length; i++) {
+//     for (let j = i + 1; j < prices.length; j++) {
+//       maxDiff = prices[j] - prices[i] > maxDiff ? maxDiff = prices[j] - prices[i] : maxDiff;
+//     }
+//   }
+//   return maxDiff;
+// }
+
+//Refactor
+const maxProfit = prices => {
   let maxDiff = 0;
-  for (let i = 0; i < prices.length; i++) {
-    for (let j = i + 1; j < prices.length; j++) {
-      maxDiff = prices[j] - prices[i] > maxDiff ? maxDiff = prices[j] - prices[i] : maxDiff;
-    }
+  let minPrice = prices[0];
+  for (let i = 1; i < prices.length; i++) {
+    let sellPrice = prices[i];
+    let profit = sellPrice - minPrice;
+    maxDiff = Math.max(maxDiff, profit);
+    //
+    if (sellPrice < minPrice) minPrice = sellPrice;
   }
   return maxDiff;
 }
-
-
 
 // Example 1:
 console.log(maxProfit([7,1,5,3,6,4]));
