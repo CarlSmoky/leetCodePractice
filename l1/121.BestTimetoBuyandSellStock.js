@@ -22,12 +22,13 @@ const maxProfit = prices => {
     let sellPrice = prices[i];
     let profit = sellPrice - minPrice;
     maxDiff = Math.max(maxDiff, profit);
-    //
+    // if the 'sellPrice' is lower than minPrice, make it the new minPrice
     if (sellPrice < minPrice) minPrice = sellPrice;
   }
   return maxDiff;
 }
 
+let pricesSmall = [225,130,661,808,236,798,659];
 // Example 1:
 console.log(maxProfit([7,1,5,3,6,4]));
 // Input: prices = [7,1,5,3,6,4]
