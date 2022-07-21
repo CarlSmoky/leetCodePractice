@@ -2,19 +2,35 @@
 
 // Letters are case sensitive, for example, "Aa" is not considered a palindrome here.
 
-const longestPalindrome = s => {
-  const countLetters = [...s].reduce((acc, cur) => {
-    return { ...acc, [cur]: (acc[cur] + 1 || 1) }
-  }, {})
+// const longestPalindrome = s => {
+//   const countLetters = [...s].reduce((acc, cur) => {
+//     return { ...acc, [cur]: (acc[cur] + 1 || 1) }
+//   }, {})
   
-  const letters = Object.keys(countLetters);
-  if (letters.length === 1) return countLetters[letters[0]];
-  const oddNumLetterArr = Object.values(countLetters).filter(value => value % 2 !== 0);
-  const initialNum = (letters.length === 3 && oddNumLetterArr.length > 0) || oddNumLetterArr.length > 0 ? 1 : 0;
-  return Object.values(countLetters).reduce((acc, cur) => {
-    return cur % 2 === 0 ? acc + cur : acc + cur - 1;
-  }, initialNum)
-}
+//   const letters = Object.keys(countLetters);
+//   if (letters.length === 1) return countLetters[letters[0]];
+//   const oddNumLetterArr = Object.values(countLetters).filter(value => value % 2 !== 0);
+//   const initialNum = (letters.length === 3 && oddNumLetterArr.length > 0) || oddNumLetterArr.length > 0 ? 1 : 0;
+//   return Object.values(countLetters).reduce((acc, cur) => {
+//     return cur % 2 === 0 ? acc + cur : acc + cur - 1;
+//   }, initialNum)
+// }
+
+//Refactor
+const longestPalindrome = s => {
+  let longest = 0;
+  let keys = {};
+
+    for (const char of s) {
+        // Keep track of character count in the keys object
+        keys[char] = (keys[char] || 0) + 1;
+        // If add 2 to the longest variable everytime we hit an even number count
+        if (keys[char] % 2 == 0) longest += 2;
+    }
+    // If s.length is greater than longest then we know that we can add a unique char in the middle of the palindromegit
+    return s.length > longest ? longest + 1 : longest;
+};
+
 // Example 1:
 console.log(longestPalindrome("abccccdd"));
 // Input: s = "abccccdd"
