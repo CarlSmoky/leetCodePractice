@@ -5,23 +5,45 @@
 // Open brackets must be closed by the same type of brackets.
 // Open brackets must be closed in the correct order.
  
+// const isValid = s => {
+//   const arr = [];
+//   for(let letter of s) {
+//     if(letter === ")" && arr[arr.length - 1] === "(") {
+//       arr.pop();
+//     } else if(letter === "]" && arr[arr.length - 1] === "[") {
+//       arr.pop();
+//     } else if(letter === "}" && arr[arr.length - 1] === "{") {
+//       arr.pop();
+//     } else {
+//       arr.push(letter);
+//     }
+//   }
+//   return arr.length === 0;
+// }
+
+
+//Refactor
 const isValid = s => {
-  const arr = [];
-  for(let letter of s) {
-
-    if(letter === ")" && arr[arr.length - 1] === "(") {
-      arr.pop();
-    } else if(letter === "]" && arr[arr.length - 1] === "[") {
-      arr.pop();
-    } else if(letter === "}" && arr[arr.length - 1] === "{") {
-      arr.pop();
-    } else {
-      arr.push(letter);
-    }
+  let map = {
+      ")": "(",
+      "]": "[",
+      "}": "{"
   }
-  return arr.length === 0;
-}
-
+  let arr = [];
+  
+  for(let i = 0; i < s.length; i ++){
+      if(s[i] === "(" || s[i] === "[" || s[i] === "{"){
+          arr.push(s[i]);
+      }
+      else{
+          if(arr[arr.length - 1] === map[s[i]]){
+              arr.pop();
+          }
+          else return false;
+      }
+  }
+  return arr.length === 0 ? true : false;
+};
 
 // Example 1:
 console.log(isValid("()"));
